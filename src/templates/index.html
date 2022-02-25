@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+  <div class="col s12 m6">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+      (function () {
+        Materialize.toast("{{message}}", 3000);
+      })();
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="card blue-grey lighten-5">
+      <div class="card-content black-text">
+        <span class="card-title">Notes</span>
+        <form action="{{url_for('add_note')}}" method="POST">
+          <label for="title">Title</label>
+          <input id="title" type="text" class="validate" name="title">
+          <label for="content">Content</label>
+          <input id="content" type="text" class="validate" name="content">
+          <button class="waves-effect waves-light btn-small green accent-4">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <div class="col s12 m6">
+    <table class="striped bordered" style="margin: .5rem 0 1rem 0;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>title</th>
+          <th>content</th>
+          <th>edit/delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for note in notes %}
+        <tr>
+          <td>{{note.0}}</td>
+          <td>{{note.1}}</td>
+          <td>{{note.2}}</td>
+          <td>
+            <a href="/edit_note/{{note.0}}" class="waves-effect waves-light btn-small light-blue accent-4">edit</a>
+            <a href="/delete_note/{{note.0}}" id="delete"
+              class="waves-effect waves-light btn-small red accent-4">delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+table {
+  border:2px solid #f8f8f8;
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 90%;
+  left:7%;
+}
+
